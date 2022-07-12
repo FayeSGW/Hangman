@@ -2,32 +2,36 @@ import random
 from wordlist import wordlist
 from wordlist_levels import seasy_words, easy_words, med_words, diff_words
 from images import progress
+import sys
 
 
 def main():
-    print("Welcome to hangman! You get 11 guesses before the man is hanged! \nType 'stop' to quit.")
-    print("Difficulty options: \nSuper Easy (SE): words 3 letters long \nEasy (E): words 4 letters long \nMedium (M): words 5-6 letters long \nDifficult (D): words >6 letters long \nRandom (R): words random length")
+    print("\nWelcome to hangman! You get 11 guesses before the man is hanged! \nType 'stop' to quit.\n")
+    print("Difficulty options: \nSuper Easy (SE): words 3 letters long \nEasy (E): words 4 letters long \nMedium (M): words 5-6 letters long \nDifficult (D): words >6 letters long \nRandom (R): words random length\n")
     
     levels = ["super easy", "easy", "medium", "difficult", "random", "se", "e", "m", "d", "r"]
     
     while True:
         choice = input("Choose a difficulty: ").lower()
         if choice in levels:
+            global word
             word = level(choice)
             break
+        elif choice == "stop":
+            sys.exit()
         else:
             print("Please input a valid difficulty")
             continue
     
-    global word_list
+    
     global newlist
-    word_list = list(word)
+    
     newlist = list("_" * len(word))
-    print("".join(newlist))
+    print("\n" + "".join(newlist))
     
     global letters
     letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
-    print(f"Remaining Letters: {''.join(letters)}")
+    print(f"Remaining Letters: {''.join(letters)}\n")
 
     guesses = 11
     
@@ -35,7 +39,7 @@ def main():
         guess = input("Guess a letter: ").lower()
         if guess == "stop":
             print(f"You have given up! The word was: {word}")
-            break      
+            sys.exit()    
 
         print(play(guess))
         if play(guess) == word:
@@ -43,9 +47,9 @@ def main():
             break
         else:
             if guess not in letters: 
-                print(f"You've already guessed that letter! Try again. \nRemaining Letters: {remaining(guess)}")
+                print(f"You've already guessed that letter! Try again. \nRemaining Letters: {remaining(guess)}\n")
             elif guess in letters and guess in word:
-                print(f"Remaining Letters: {remaining(guess)}")
+                print(f"Remaining Letters: {remaining(guess)}\n")
             elif guess not in word:
                 guesses -= 1
                 if guesses == 0:
@@ -54,7 +58,7 @@ def main():
                 else:
                     print(f"Nope, no {guess}! \nRemaining Guesses: {guesses}")
                     print(hanging(guesses))
-                    print(f"Remaining Letters: {remaining(guess)}")
+                    print(f"Remaining Letters: {remaining(guess)}\n")
 
 def level(d):
     if d == "super easy" or d == "se":
@@ -69,12 +73,13 @@ def level(d):
         return str(random.choice(wordlist)).lower()
     
 def play(a):
+    word_list = list(word)
     for i in range(len(word_list)):
         if word_list[i] == a:
             global newlist     
             newlist = newlist[:i] + [word_list[i]] + newlist[i+1:]
         else:
-            newlist = newlist[:i] + [newlist[i]] + newlist[i+1:]          
+            newlist = newlist          
     return "".join(newlist)
 
 def remaining(l):
