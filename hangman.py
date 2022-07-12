@@ -40,6 +40,10 @@ def main():
         if guess == "stop":
             print(f"You have given up! The word was: {word}")
             sys.exit()    
+        elif guess.isalpha() == False or len(guess) != 1:
+            print("Please input a letter.")
+            continue
+
 
         print(play(guess))
         if play(guess) == word:
