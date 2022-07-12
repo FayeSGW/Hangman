@@ -14,25 +14,31 @@ def main():
     newlist = list("_" * len(word))
     print("".join(newlist))
     
-    print(remaining("-"))
+    letters = remaining("-")
+    print(f"Remaining Letters: {letters}")
 
     guesses = 11
     
     while guesses > 0:
         guess = input("Guess a letter: ").lower()
         if guess == "stop":
-            sys.exit()
-        elif guess not in word:
-            guesses -=1
-        
+            sys.exit()      
 
         print(play(guess))
         if play(guess) == word:
             print("You win!")
             break
-        else:
-            print(f"Remaining Guesses: {guesses}")
-            print(remaining(guess))
+        elif play(guess) != word:
+            if guess not in letters: 
+                print(f"You've already guessed that letter! Try again. \nRemaining Letters: {letters}")
+            elif guess in letters and guess in word:
+                letters = remaining(guess)
+                print(f"Remaining Letters: {letters}")
+            elif guess not in word:
+                guesses -= 1
+                letters = remaining(guess)
+                print(f"Nope, no {guess}! \nRemaining Guesses: {guesses}")
+
         
 
 def play(a):
@@ -47,14 +53,13 @@ def play(a):
 
 def remaining(l):
     letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
-    if l == "-":
-        a = f'Remaining Letters: {"".join(letters)}'
-    elif l in letters:
+    if l in letters:
         ind = letters.index(l)
         letters.pop(ind)
-        a = f'Remaining Letters: {"".join(letters)}'
-    elif l not in letters:
-        a = "You've already guessed that letter! Try again."
+        a = "".join(letters)
+    else:
+        a = "".join(letters)
+
     return a
 
 main()
