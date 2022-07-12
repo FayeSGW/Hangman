@@ -1,31 +1,38 @@
 import random
+import sys
 from wordlist import wordlist
 
 
 def main():
-    print("Welcome to hangman! You get 11 guesses before the man is hanged!")
+    print("Welcome to hangman! You get 11 guesses before the man is hanged! \nType 'stop' to quit.")
 
     global word_list
+    global newlist
     word = str(random.choice(wordlist)).lower()
     print(word)
     word_list = list(word)
-    print("_" * len(word))
+    newlist = list("_" * len(word))
+    print("".join(newlist))
     
-    global letters
-    letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
-    letters2 = "".join(letters)
-    print(f"Remaining Letters: {letters2}")
+    print(remaining("-"))
 
     guesses = 11
-    global newlist
-    newlist = list("_" * len(word))
+    
     while guesses > 0:
         guess = input("Guess a letter: ").lower()
-        print(play(guess))
-        if guess not in word:
+        if guess == "stop":
+            sys.exit()
+        elif guess not in word:
             guesses -=1
-        print(f"Remaining Guesses: {guesses}")
-        print(f"Remaining Letters: {remaining(guess)}")
+        
+
+        print(play(guess))
+        if play(guess) == word:
+            print("You win!")
+            break
+        else:
+            print(f"Remaining Guesses: {guesses}")
+            print(remaining(guess))
         
 
 def play(a):
@@ -39,10 +46,15 @@ def play(a):
     return "".join(newlist)
 
 def remaining(l):
-    if l in letters:
+    letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+    if l == "-":
+        a = f'Remaining Letters: {"".join(letters)}'
+    elif l in letters:
         ind = letters.index(l)
         letters.pop(ind)
-        a = "".join(letters)
+        a = f'Remaining Letters: {"".join(letters)}'
+    elif l not in letters:
+        a = "You've already guessed that letter! Try again."
     return a
 
 main()
