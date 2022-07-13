@@ -3,22 +3,21 @@ from wordlist import wordlist
 from wordlist_levels import seasy_words, easy_words, med_words, diff_words
 from images import progress
 import sys
-from tkinter import *
+import tkinter as tk
 from tkinter import ttk
 
 
-root = Tk()
+
+root = tk.Tk()
 root.title("Hangman Game")
-topframe = ttk.Frame(root)
+topframe = ttk.Frame(root, padding = "0 15 0 0")
 topframe.grid(column = 0, row = 0)
 buttonsframe = ttk.Frame(root, padding = "10 5 10 5")
 buttonsframe.grid(column = 0, row = 1)
 bottomframe = ttk.Frame(root, padding = "5")
 bottomframe.grid(column = 0, row = 2)
 
-def main():
-
-    
+def main(): 
 
 #Variables
     global word_list
@@ -32,61 +31,58 @@ def main():
 
     word = str(random.choice(wordlist)).lower()
     newlist = list("-" * len(word))
-    
     word_list = list(word)
     guesses = 0
 
-    
-
     #Progress Images
-    imgzero = PhotoImage(file = r"Images\Zero.png")
-    imgone = PhotoImage(file = r"Images\One.png")
-    imgtwo = PhotoImage(file = r"Images\Two.png")
-    imgthree = PhotoImage(file = r"Images\Three.png")
-    imgfour = PhotoImage(file = r"Images\Four.png")
-    imgfive = PhotoImage(file = r"Images\Five.png")
-    imgsix = PhotoImage(file = r"Images\Six.png")
-    imgseven = PhotoImage(file = r"Images\Seven.png")
-    imgeight = PhotoImage(file = r"Images\Eight.png")
-    imgnine = PhotoImage(file = r"Images\Nine.png")
-    imgten = PhotoImage(file = r"Images\Ten.png")
-    imgeleven = PhotoImage(file = r"Images\Eleven.png")
+    imgzero = tk.PhotoImage(file = r"Images\Zero.png")
+    imgone = tk.PhotoImage(file = r"Images\One.png")
+    imgtwo = tk.PhotoImage(file = r"Images\Two.png")
+    imgthree = tk.PhotoImage(file = r"Images\Three.png")
+    imgfour = tk.PhotoImage(file = r"Images\Four.png")
+    imgfive = tk.PhotoImage(file = r"Images\Five.png")
+    imgsix = tk.PhotoImage(file = r"Images\Six.png")
+    imgseven = tk.PhotoImage(file = r"Images\Seven.png")
+    imgeight = tk.PhotoImage(file = r"Images\Eight.png")
+    imgnine = tk.PhotoImage(file = r"Images\Nine.png")
+    imgten = tk.PhotoImage(file = r"Images\Ten.png")
+    imgeleven = tk.PhotoImage(file = r"Images\Eleven.png")
 
     #Labels
     progresslbl = ttk.Label(topframe, image = imgzero, borderwidth = 2, relief = "ridge")
-    worddisplaylbl = ttk.Label(topframe, text = f"\n                  {'-' * len(word)}                  ", font = (None, 15), padding = "10")
+    worddisplaylbl = ttk.Label(topframe, text = f"\n{'-' * len(word)}", font = (None, 15), padding = "10")
 
     #Letter Buttons
-    btnA = Button(buttonsframe, text = "A", width = 2, command = lambda letter = "A", index = 0 : letterchoice(letter, index))
-    btnB = Button(buttonsframe, text = "B", width = 2, command = lambda letter = "B", index = 1: letterchoice(letter, index))
-    btnC = Button(buttonsframe, text = "C", width = 2, command = lambda letter = "C", index = 2: letterchoice(letter, index))
-    btnD = Button(buttonsframe, text = "D", width = 2, command = lambda letter = "D", index = 3: letterchoice(letter, index))
-    btnE = Button(buttonsframe, text = "E", width = 2, command = lambda letter = "E", index = 4: letterchoice(letter, index))
-    btnF = Button(buttonsframe, text = "F", width = 2, command = lambda letter = "F", index = 5: letterchoice(letter, index))
-    btnG = Button(buttonsframe, text = "G", width = 2, command = lambda letter = "G", index = 6: letterchoice(letter, index))
-    btnH = Button(buttonsframe, text = "H", width = 2, command = lambda letter = "H", index = 7: letterchoice(letter, index))
-    btnI = Button(buttonsframe, text = "I", width = 2, command = lambda letter = "I", index = 8: letterchoice(letter, index))
-    btnJ = Button(buttonsframe, text = "J", width = 2, command = lambda letter = "J", index = 9: letterchoice(letter, index))
-    btnK = Button(buttonsframe, text = "K", width = 2, command = lambda letter = "K", index = 10: letterchoice(letter, index))
-    btnL = Button(buttonsframe, text = "L", width = 2, command = lambda letter = "L", index = 11: letterchoice(letter, index))
-    btnM = Button(buttonsframe, text = "M", width = 2, command = lambda letter = "M", index = 12: letterchoice(letter, index))
-    btnN = Button(buttonsframe, text = "N", width = 2, command = lambda letter = "N", index = 13: letterchoice(letter, index))
-    btnO = Button(buttonsframe, text = "O", width = 2, command = lambda letter = "O", index = 14: letterchoice(letter, index))
-    btnP = Button(buttonsframe, text = "P", width = 2, command = lambda letter = "P", index = 15: letterchoice(letter, index))
-    btnQ = Button(buttonsframe, text = "Q", width = 2, command = lambda letter = "Q", index = 16: letterchoice(letter, index))
-    btnR = Button(buttonsframe, text = "R", width = 2, command = lambda letter = "R", index = 17: letterchoice(letter, index))
-    btnS = Button(buttonsframe, text = "S", width = 2, command = lambda letter = "S", index = 18: letterchoice(letter, index))
-    btnT = Button(buttonsframe, text = "T", width = 2, command = lambda letter = "T", index = 19: letterchoice(letter, index))
-    btnU = Button(buttonsframe, text = "U", width = 2, command = lambda letter = "U", index = 20: letterchoice(letter, index))
-    btnV = Button(buttonsframe, text = "V", width = 2, command = lambda letter = "V", index = 21: letterchoice(letter, index))
-    btnW = Button(buttonsframe, text = "W", width = 2, command = lambda letter = "W", index = 22: letterchoice(letter, index))
-    btnX = Button(buttonsframe, text = "X", width = 2, command = lambda letter = "X", index = 23: letterchoice(letter, index))
-    btnY = Button(buttonsframe, text = "Y", width = 2, command = lambda letter = "Y", index = 24: letterchoice(letter, index))
-    btnZ = Button(buttonsframe, text = "Z", width = 2, command = lambda letter = "Z", index = 25: letterchoice(letter, index))
+    btnA = ttk.Button(buttonsframe, text = "A", width = 2, command = lambda letter = "A", index = 0 : letterchoice(letter, index))
+    btnB = ttk.Button(buttonsframe, text = "B", width = 2, command = lambda letter = "B", index = 1: letterchoice(letter, index))
+    btnC = ttk.Button(buttonsframe, text = "C", width = 2, command = lambda letter = "C", index = 2: letterchoice(letter, index))
+    btnD = ttk.Button(buttonsframe, text = "D", width = 2, command = lambda letter = "D", index = 3: letterchoice(letter, index))
+    btnE = ttk.Button(buttonsframe, text = "E", width = 2, command = lambda letter = "E", index = 4: letterchoice(letter, index))
+    btnF = ttk.Button(buttonsframe, text = "F", width = 2, command = lambda letter = "F", index = 5: letterchoice(letter, index))
+    btnG = ttk.Button(buttonsframe, text = "G", width = 2, command = lambda letter = "G", index = 6: letterchoice(letter, index))
+    btnH = ttk.Button(buttonsframe, text = "H", width = 2, command = lambda letter = "H", index = 7: letterchoice(letter, index))
+    btnI = ttk.Button(buttonsframe, text = "I", width = 2, command = lambda letter = "I", index = 8: letterchoice(letter, index))
+    btnJ = ttk.Button(buttonsframe, text = "J", width = 2, command = lambda letter = "J", index = 9: letterchoice(letter, index))
+    btnK = ttk.Button(buttonsframe, text = "K", width = 2, command = lambda letter = "K", index = 10: letterchoice(letter, index))
+    btnL = ttk.Button(buttonsframe, text = "L", width = 2, command = lambda letter = "L", index = 11: letterchoice(letter, index))
+    btnM = ttk.Button(buttonsframe, text = "M", width = 2, command = lambda letter = "M", index = 12: letterchoice(letter, index))
+    btnN = ttk.Button(buttonsframe, text = "N", width = 2, command = lambda letter = "N", index = 13: letterchoice(letter, index))
+    btnO = ttk.Button(buttonsframe, text = "O", width = 2, command = lambda letter = "O", index = 14: letterchoice(letter, index))
+    btnP = ttk.Button(buttonsframe, text = "P", width = 2, command = lambda letter = "P", index = 15: letterchoice(letter, index))
+    btnQ = ttk.Button(buttonsframe, text = "Q", width = 2, command = lambda letter = "Q", index = 16: letterchoice(letter, index))
+    btnR = ttk.Button(buttonsframe, text = "R", width = 2, command = lambda letter = "R", index = 17: letterchoice(letter, index))
+    btnS = ttk.Button(buttonsframe, text = "S", width = 2, command = lambda letter = "S", index = 18: letterchoice(letter, index))
+    btnT = ttk.Button(buttonsframe, text = "T", width = 2, command = lambda letter = "T", index = 19: letterchoice(letter, index))
+    btnU = ttk.Button(buttonsframe, text = "U", width = 2, command = lambda letter = "U", index = 20: letterchoice(letter, index))
+    btnV = ttk.Button(buttonsframe, text = "V", width = 2, command = lambda letter = "V", index = 21: letterchoice(letter, index))
+    btnW = ttk.Button(buttonsframe, text = "W", width = 2, command = lambda letter = "W", index = 22: letterchoice(letter, index))
+    btnX = ttk.Button(buttonsframe, text = "X", width = 2, command = lambda letter = "X", index = 23: letterchoice(letter, index))
+    btnY = ttk.Button(buttonsframe, text = "Y", width = 2, command = lambda letter = "Y", index = 24: letterchoice(letter, index))
+    btnZ = ttk.Button(buttonsframe, text = "Z", width = 2, command = lambda letter = "Z", index = 25: letterchoice(letter, index))
 
     #Other Buttons
-    quit = Button(bottomframe, text = "Give Up", command = giveup)
-    restart = Button(bottomframe, text = "Play Again", command = playagain)
+    quit = ttk.Button(bottomframe, text = "Give Up", command = giveup)
+    restart = ttk.Button(bottomframe, text = "Play Again", command = playagain)
 
     #Gridding
     progresslbl.grid(column = 0, row = 0)
@@ -136,15 +132,15 @@ def letterchoice(letter, index):
             newlist = newlist[:i] + [word_list[i]] + newlist[i+1:]
         else:
             newlist = newlist
-    res = f'\n{"".join(newlist)}'
-    worddisplaylbl.config(text = res)
+    res = "".join(newlist)
+    worddisplaylbl.config(text = f"\n{res}")
     disable(index)
     fail(letter)
     wincheck(res)
     
 def wincheck(x):
     if x == word:
-        worddisplaylbl.config(text = "You win!", font = (None, 15))
+        worddisplaylbl.config(text = f'\nYou win!', font = (None, 15))
 
 def fail(y):
     if y not in word:
@@ -152,15 +148,16 @@ def fail(y):
         guesses = guesses + 1
         progresslbl.config(image = imglist[guesses])
         if guesses == 11:
-            worddisplaylbl.config(text = f'Sorry, you\'re hanged! \nThe word was "{word}"', font = (None, 15), justify = CENTER)
+            worddisplaylbl.config(text = f'Sorry, you\'re hanged! \nThe word was "{word}"', font = (None, 15), justify = "center")
    
 def disable(index):
     buttons[index].config(state = "disabled")
 
 def giveup():
-    worddisplaylbl.config(text = f'You have given up! \nThe word was "{word}".', font = (None, 15), justify = CENTER)
+    worddisplaylbl.config(text = f'You have given up! \nThe word was "{word}".', font = (None, 15), justify = "center")
 
 def playagain():
+    worddisplaylbl.destroy()
     main()
 
 
