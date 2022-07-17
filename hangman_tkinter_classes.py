@@ -6,6 +6,7 @@ import tkinter as tk
 from tkinter import ttk
 
 
+
 class Game(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -75,7 +76,7 @@ class Game(tk.Tk):
 
         #Other Buttons
         quit = ttk.Button(self.bottomframe, text = "Give Up", command = self.giveup)
-        restart = ttk.Button(self.bottomframe, text = "Play Again", command = playagain)
+        restart = ttk.Button(self.bottomframe, text = "Play Again", command = self.playagain)
 
         #Gridding
         self.progresslbl.grid(column = 0, row = 0)
@@ -112,9 +113,7 @@ class Game(tk.Tk):
         self.imglist = [imgzero, imgone, imgtwo, imgthree, imgfour, imgfive, imgsix, imgseven, imgeight, imgnine, imgten, imgeleven]
         self.buttons = [btnA, btnB, btnC, btnD, btnE, btnF, btnG, btnH, btnI, btnJ, btnK, btnL, btnM, btnN, btnO, btnP, btnQ, btnR, btnS, btnT, btnU, btnV, btnW, btnX, btnY, btnZ]
 
-    
 
-        
     def letterchoice(self, letter, index):
         letter = letter.replace("\"", "").lower()
         for i in range(len(self.word_list)):
@@ -146,10 +145,11 @@ class Game(tk.Tk):
     def giveup(self):
         self.worddisplaylbl.config(text = f'You have given up! \nThe word was "{self.word}".', font = (None, 15), justify = "center")
 
-def playagain():
-    Game()
-    game.mainloop
-        
+    def playagain(self):
+        self.destroy()
+        game = Game()
+        game.mainloop
+            
 
 
 

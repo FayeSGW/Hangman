@@ -2,7 +2,6 @@ import random
 from wordlist import wordlist
 from wordlist_levels import seasy_words, easy_words, med_words, diff_words
 from images import progress
-import sys
 import tkinter as tk
 from tkinter import ttk
 
@@ -10,12 +9,54 @@ from tkinter import ttk
 
 root = tk.Tk()
 root.title("Hangman Game")
+
+
 topframe = ttk.Frame(root, padding = "0 15 0 0")
 topframe.grid(column = 0, row = 0)
 buttonsframe = ttk.Frame(root, padding = "10 5 10 5")
 buttonsframe.grid(column = 0, row = 1)
 bottomframe = ttk.Frame(root, padding = "5")
 bottomframe.grid(column = 0, row = 2)
+
+
+def first():
+    root.iconify()
+
+    global levelwindow
+    levelwindow = tk.Toplevel(root)
+    levelframe = ttk.Frame(levelwindow)
+    btnSuperEasy = ttk.Button(levelframe, text = "Super Easy", command = level("Super Easy"))
+    btnEasy = ttk.Button(levelframe, text = "Easy", command = level("Easy"))
+    btnMedium = ttk.Button(levelframe, text = "Medium", command = level("Medium"))
+    btnDifficult = ttk.Button(levelframe, text = "Difficult", command = level("Difficult"))
+    btnRandom = ttk.Button(levelframe, text = "Random", command = level("Random"))
+
+    btnSuperEasy.grid(column = 0, row = 0)
+    btnEasy.grid(column = 0, row = 1)
+    btnMedium.grid(column = 0, row = 2)
+    btnDifficult.grid(column = 0, row = 3)
+    btnRandom.grid(column = 0, row = 4)
+    
+    levelwindow.mainloop()
+
+def level(choice):
+    global word
+    if choice == "Super Easy":
+        word = str(random.choice(seasy_words)).lower()
+    if choice == "Easy":
+        word = str(random.choice(easy_words)).lower()
+    if choice == "Medium":
+        word = str(random.choice(med_words)).lower()
+    if choice == "Difficult":
+        word = str(random.choice(diff_words)).lower()
+    if choice == "Random":
+        word = str(random.choice(wordlist)).lower()
+
+    main()
+    root.deiconify
+    levelwindow.destroy()
+
+
 
 def main(): 
 
@@ -27,7 +68,7 @@ def main():
     global guesses 
     global progresslbl
     global worddisplaylbl
-    global word
+    
 
     word = str(random.choice(wordlist)).lower()
     newlist = list("-" * len(word))
@@ -166,5 +207,5 @@ def playagain():
 
 
 if __name__ == "__main__":
-    main()
+   first()
     
