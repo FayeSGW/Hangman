@@ -13,11 +13,11 @@ class Game(tk.Tk):
         
         self.title("Hangman Game")
         self.topframe = ttk.Frame(self, padding = "0 15 0 0")
-        self.topframe.grid(column = 0, row = 0)
+        self.topframe.grid(column = 0, row = 1)
         self.buttonsframe = ttk.Frame(self, padding = "10 5 10 5")
-        self.buttonsframe.grid(column = 0, row = 1)
+        self.buttonsframe.grid(column = 0, row = 2)
         self.bottomframe = ttk.Frame(self, padding = "5")
-        self.bottomframe.grid(column = 0, row = 2)
+        self.bottomframe.grid(column = 0, row = 3)
 
         #Variables
         word = str(random.choice(wordlist)).lower()
@@ -150,7 +150,6 @@ class Game(tk.Tk):
         game = Game()
         game.mainloop
             
-
 
 
 if __name__ == "__main__":

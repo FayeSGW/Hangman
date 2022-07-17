@@ -10,25 +10,57 @@ from tkinter import ttk
 root = tk.Tk()
 root.title("Hangman Game")
 
-levelframe = ttk.Frame(root, padding = "10 20 10 5")
-levelframe.grid(column = 0, row = 0)
-topframe = ttk.Frame(root, padding = "0 15 0 0")
-topframe.grid(column = 0, row = 1)
-buttonsframe = ttk.Frame(root, padding = "10 5 10 5")
-buttonsframe.grid(column = 0, row = 2)
-bottomframe = ttk.Frame(root, padding = "5")
-bottomframe.grid(column = 0, row = 3)
+def first():
+    levelframe = ttk.Frame(root, padding = "20 20 20 20")
+    levelframe.grid(column = 0, row = 0)
+
+    btnSuperEasy = ttk.Button(levelframe, text = "Super Easy", command = level("Super Easy"))
+    btnEasy = ttk.Button(levelframe, text = "Easy", command = level("Easy"))
+    btnMedium = ttk.Button(levelframe, text = "Medium", command = level("Medium"))
+    btnDifficult = ttk.Button(levelframe, text = "Difficult", command = level("Difficult"))
+    btnRandom = ttk.Button(levelframe, text = "Random", command = level("Random"))
+
+    btnSuperEasy.grid(column = 0, row = 0)
+    btnEasy.grid(column = 0, row = 1)
+    btnMedium.grid(column = 0, row = 2)
+    btnDifficult.grid(column = 0, row = 3)
+    btnRandom.grid(column = 0, row = 4)
+
+def level(choice):
+    global word
+    if choice == "Super Easy":
+        word = str(random.choice(seasy_words)).lower()
+    if choice == "Easy":
+        word = str(random.choice(easy_words)).lower()
+    if choice == "Medium":
+        word = str(random.choice(med_words)).lower()
+    if choice == "Difficult":
+        word = str(random.choice(diff_words)).lower()
+    if choice == "Random":
+        word = str(random.choice(wordlist)).lower()
+    main()
 
 def main(): 
 
 #Variables
-    global levelbuttons
+    global word_list
+    global newlist
     global imglist
     global buttons
     global guesses 
     global progresslbl
     global worddisplaylbl
     global word
+
+    #GUI
+    
+    topframe = ttk.Frame(root, padding = "0 15 0 0")
+    topframe.grid(column = 0, row = 1)
+    buttonsframe = ttk.Frame(root, padding = "10 5 10 5")
+    buttonsframe.grid(column = 0, row = 2)
+    bottomframe = ttk.Frame(root, padding = "5")
+    bottomframe.grid(column = 0, row = 3)
+
 
     #Progress Images
     imgzero = tk.PhotoImage(file = r"Images\Zero.png")
@@ -43,6 +75,8 @@ def main():
     imgnine = tk.PhotoImage(file = r"Images\Nine.png")
     imgten = tk.PhotoImage(file = r"Images\Ten.png")
     imgeleven = tk.PhotoImage(file = r"Images\Eleven.png")
+
+    
 
     #Letter Buttons
     btnA = ttk.Button(buttonsframe, text = "A", width = 2, command = lambda letter = "A", index = 0 : letterchoice(letter, index))
@@ -73,26 +107,16 @@ def main():
     btnZ = ttk.Button(buttonsframe, text = "Z", width = 2, command = lambda letter = "Z", index = 25: letterchoice(letter, index))
 
     #Other Buttons
-    btnSuperEasy = ttk.Button(levelframe, text = "Super Easy", command = lambda choice = "Super Easy": level(choice))
-    btnEasy = ttk.Button(levelframe, text = "Easy", command = lambda choice = "Easy": level(choice))
-    btnMedium = ttk.Button(levelframe, text = "Medium", command = lambda choice = "Medium": level(choice))
-    btnDifficult = ttk.Button(levelframe, text = "Difficult", command = lambda choice = "Difficult": level(choice))
-    btnRandom = ttk.Button(levelframe, text = "Random", command = lambda choice = "Random": level(choice))
+    
     quit = ttk.Button(bottomframe, text = "Give Up", command = giveup)
     restart = ttk.Button(bottomframe, text = "Play Again", command = playagain)
 
     #Labels
-    introlbl = ttk.Label(levelframe, text = "Welcome to Hangman! \nTry to guess the word before you get hanged. \n\nUse the buttons below to choose a difficulty! \n\nSuper Easy: Words are 3 letters long. \nEasy: Words are 4 letter long. \nMedium: Words are 5-6 letters long. \nDifficult: Words are longer than 6 letters. \nRandom: Random choice. \n", justify = tk.CENTER)
     progresslbl = ttk.Label(topframe, image = imgzero, borderwidth = 2, relief = "ridge")
-    worddisplaylbl = ttk.Label(topframe, text = "\n", font = (None, 15), padding = "10")
+    worddisplaylbl = ttk.Label(topframe, text = f"\n{'-' * len(word)}", font = (None, 15), padding = "10")
 
     #Gridding
-    introlbl.grid(column = 0, row = 0, columnspan = 4)
-    btnSuperEasy.grid(column = 0, row = 1)
-    btnEasy.grid(column = 1, row = 1)
-    btnMedium.grid(column = 2, row = 1)
-    btnDifficult.grid(column = 3, row = 1)
-    btnRandom.grid(column = 1, row = 2, columnspan = 2)
+    
     progresslbl.grid(column = 0, row = 0)
     worddisplaylbl.grid(column = 0, row = 1)
     btnA.grid(column = 0, row = 0)
@@ -124,46 +148,20 @@ def main():
     quit.grid(column = 0, row = 0)
     restart.grid(column = 0, row = 1)
 
-    
     imglist = [imgzero, imgone, imgtwo, imgthree, imgfour, imgfive, imgsix, imgseven, imgeight, imgnine, imgten, imgeleven]
     buttons = [btnA, btnB, btnC, btnD, btnE, btnF, btnG, btnH, btnI, btnJ, btnK, btnL, btnM, btnN, btnO, btnP, btnQ, btnR, btnS, btnT, btnU, btnV, btnW, btnX, btnY, btnZ]
-    levelbuttons = [btnSuperEasy, btnEasy, btnMedium, btnDifficult, btnRandom]
 
-    guesses = 0
     
+    newlist = list("-" * len(word))
+    word_list = list(word)
+    guesses = 0
     
     root.mainloop()
 
 
-def level(choice):
-    #User chooses level
-    global word
-    global newlist
-    global word_list
 
-    if choice == "Super Easy":
-        word = str(random.choice(seasy_words)).lower()
-    elif choice == "Easy":
-        word = str(random.choice(easy_words)).lower()
-    elif choice == "Medium":
-        word = str(random.choice(med_words)).lower()
-    elif choice == "Difficult":
-        word = str(random.choice(diff_words)).lower()
-    elif choice == "Random":
-        word = str(random.choice(wordlist)).lower()
-    disablelevel()
-    worddisplaylbl.config(text = f"\n{'-' * len(word)}")
-    newlist = list("-" * len(word))
-    word_list = list(word)
-    
-def disablelevel():
-    #Disables level buttons once level is chosen
-    for i in levelbuttons:
-        i.config(state = "disabled")
-    
 
 def letterchoice(letter, index):
-    #Inserts letter from button press into word display
     letter = letter.replace("\"", "").lower()
     for i in range(len(word_list)):
         if word_list[i] == letter:
@@ -178,12 +176,10 @@ def letterchoice(letter, index):
     wincheck(res)
     
 def wincheck(x):
-    #Checks if word is guessed
     if x == word:
         worddisplaylbl.config(text = f'\nYou win!', font = (None, 15))
 
 def fail(y):
-    #Updates image if guessed letter isn't in word
     if y not in word:
         global guesses
         guesses = guesses + 1
@@ -192,19 +188,16 @@ def fail(y):
             worddisplaylbl.config(text = f'Sorry, you\'re hanged! \nThe word was "{word}"', font = (None, 15), justify = "center")
    
 def disable(index):
-    #Disables letter button after click
     buttons[index].config(state = "disabled")
 
 def giveup():
-    #User gives up
     worddisplaylbl.config(text = f'You have given up! \nThe word was "{word}".', font = (None, 15), justify = "center")
 
 def playagain():
-    #Restart game
     worddisplaylbl.destroy()
     main()
 
 
 if __name__ == "__main__":
-   main()
+   first()
     
