@@ -6,7 +6,6 @@ import tkinter as tk
 from tkinter import ttk
 
 
-
 root = tk.Tk()
 root.title("Hangman Game")
 
@@ -29,6 +28,8 @@ def main():
     global progresslbl
     global worddisplaylbl
     global word
+
+    guesses = 0
 
     #Progress Images
     imgzero = tk.PhotoImage(file = r"Images\Zero.png")
@@ -129,9 +130,6 @@ def main():
     buttons = [btnA, btnB, btnC, btnD, btnE, btnF, btnG, btnH, btnI, btnJ, btnK, btnL, btnM, btnN, btnO, btnP, btnQ, btnR, btnS, btnT, btnU, btnV, btnW, btnX, btnY, btnZ]
     levelbuttons = [btnSuperEasy, btnEasy, btnMedium, btnDifficult, btnRandom]
 
-    guesses = 0
-    
-    
     root.mainloop()
 
 
@@ -151,6 +149,7 @@ def level(choice):
         word = str(random.choice(diff_words)).lower()
     elif choice == "Random":
         word = str(random.choice(wordlist)).lower()
+        
     disablelevel()
     worddisplaylbl.config(text = f"\n{'-' * len(word)}")
     newlist = list("-" * len(word))
