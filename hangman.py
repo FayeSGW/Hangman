@@ -1,6 +1,5 @@
 import random
-from wordlist import wordlist
-from wordlist_levels import seasy_words, easy_words, med_words, diff_words
+from wordlevels import seasy_words, easy_words, med_words, diff_words, rand_words
 from images import progress
 import sys
 
@@ -74,7 +73,7 @@ def level(d):
     elif d == "difficult" or d == "d":
         return str(random.choice(diff_words)).lower()
     elif d == "random" or d == "r":
-        return str(random.choice(wordlist)).lower()
+        return str(random.choice(rand_words)).lower()
     
 def play(a):
     word_list = list(word)

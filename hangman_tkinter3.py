@@ -1,6 +1,5 @@
 import random
-from wordlist import wordlist
-from wordlist_levels import seasy_words, easy_words, med_words, diff_words
+from wordlevels import seasy_words, easy_words, med_words, diff_words, rand_words
 import tkinter as tk
 from tkinter import ttk
 
@@ -147,7 +146,7 @@ def level(choice):
     elif choice == "Difficult":
         word = str(random.choice(diff_words)).lower()
     elif choice == "Random":
-        word = str(random.choice(wordlist)).lower()
+        word = str(random.choice(rand_words)).lower()
 
     disablelevel()
     worddisplaylbl.config(text = f"\n{'-' * len(word)}")
