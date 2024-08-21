@@ -22,7 +22,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-            -Dsonar.analysis.kosli_flow=${{ env.KOSLI_FLOW }}
-            -Dsonar.analysis.kosli_trail=${{ env.KOSLI_TRAIL }}
+      - name: Echoooo
+        run: echo "$(<.scannerwork/report-task.txt)"
