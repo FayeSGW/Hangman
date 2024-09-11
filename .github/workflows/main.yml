@@ -34,6 +34,6 @@ jobs:
 
       - name: Attest SonarCloud results to Kosli
         run:
-          kosli attest sonar \
-            --dry-run \
+          kosli attest sonar
+            --dry-run
             --name=sonar-attest
